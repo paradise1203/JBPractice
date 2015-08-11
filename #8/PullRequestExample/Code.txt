@@ -1,1 +1,20 @@
 Code of my imagenery project)
+Как, для чего и с помощью каких средств проводится один из видов аудита безопасности - тестирование на проникновение. 
+Вебинар для всех, кто интересуется вопросами обеспечения информационной безопасности, ИТ/ИБ специалистов.
+
+Тестирование на проникновение — метод оценки безопасности компьютерных систем или сетей средствами моделирования атаки злоумышленника. Тестирование на проникновение позволяет получить объективную оценку того, насколько легко осуществить несанкционированный доступ к ресурсам корпоративной сети или сайта вашей компании, каким способом, через какие уязвимости или через какие недоработки в системе.
+
+На вебинаре будут рассмотрены следующие темы: 
+- Что такое тестирование на проникновение, виды; 
+- Методология и классификация уязвимостей; 
+- Сходства и различия пентеста и атаки злоумышленников; 
+- Инструментарий; 
+- Несколько интересных кейсов из практики.
+
+ Look and you will see a pattern here. The more we used Spring, the
+more we discovered new features. And each feature we discovered was a pleasure
+to work with. Its web MVC framework worked nicely in a few applications. Its AOP
+support has been helpful in several places, primarily security. The JDBC support
+was quite nice for some smaller programs. Oh yeah, we also use it for scheduling.
+And JNDI access. And email integration. When it comes to hitting development
+sweet spots, Spring knocks the ball out of the park.
