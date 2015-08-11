@@ -10,3 +10,11 @@ Code of my imagenery project)
 - Сходства и различия пентеста и атаки злоумышленников; 
 - Инструментарий; 
 - Несколько интересных кейсов из практики.
+
+ Look closely and you will see a pattern here. The more we used Spring, the
+more we discovered new features. And each feature we discovered was a pleasure
+to work with. Its web MVC framework worked nicely in a few applications. Its AOP
+support has been helpful in several places, primarily security. The JDBC support
+was quite nice for some smaller programs. Oh yeah, we also use it for scheduling.
+And JNDI access. And email integration. When it comes to hitting development
+sweet spots, Spring knocks the ball out of the park.
