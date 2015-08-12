@@ -6,9 +6,7 @@
 
     <bean id="greetingService"
             class="com.aidar.GreetingServiceImpl">
-        <property name="greeting">
-            <value>Hello World!</value>
-        </property>
+        <property name="greeting" value="Hello World!"> </property>
     </bean>
 
 </beans>

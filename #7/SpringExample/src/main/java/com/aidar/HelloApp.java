@@ -1,14 +1,13 @@
 package com.aidar;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class HelloApp {
 
     public static void main(String[] args) throws Exception {
-        BeanFactory factory = new XmlBeanFactory(new ClassPathResource("hello.xml"));
-        GreetingService greetingService = (GreetingService) factory.getBean("greetingService");
+        ApplicationContext context=new ClassPathXmlApplicationContext("hello.xml");
+        GreetingService greetingService=(GreetingService)context.getBean("greetingService");
         greetingService.sayGreeting();
     }
 }
