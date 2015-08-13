@@ -12,14 +12,15 @@ public class PageController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showHomePage() {
-        return "additionForm";
+        return "page";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String showResult(@RequestParam("firstNumber") String fN, @RequestParam("secondNumber") String sN, ModelMap model) {
         model.addAttribute("firstNumber", Integer.parseInt(fN));
         model.addAttribute("secondNumber", Integer.parseInt(sN));
-        return "additionResult";
+        model.addAttribute("result", true);
+        return "page";
     }
 
 }
