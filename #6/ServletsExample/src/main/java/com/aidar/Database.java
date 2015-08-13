@@ -1,4 +1,4 @@
-package data;
+package com.aidar;
 
 import java.util.LinkedList;
 import java.util.List;
