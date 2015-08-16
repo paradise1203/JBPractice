@@ -10,6 +10,8 @@
         <h3> Hello, ${cookie.name.value}! </h3>
     </c:if>
 
+    <h4> Session id: ${sessionId} </h4>
+
     <form action="/list" method="post">
         <fieldset>
             <legend> Task: </legend>

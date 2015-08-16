@@ -4,10 +4,7 @@ import com.aidar.data.Database;
 import com.aidar.data.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
+@SessionAttributes("sessionId")
 @RequestMapping("/list")
 public class PageController {
 
@@ -32,10 +30,17 @@ public class PageController {
         Cookie[] cookies=request.getCookies();
         boolean hasCookie= cookies != null && hasMyCookie(cookies);
         model.addAttribute("hasCookie", hasCookie);
+        model.addAttribute("sessionId", request.getSession().getId());
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String showHomePage(ModelMap model, HttpServletRequest request) {
+        /*
+        //Можно при каждом запросе сбрасывать текущую сессию и видеть, как изменятеся session id.
+        HttpSession session=request.getSession(false);
+        if (session!=null)
+            session.invalidate();
+        */
         buildModel(model, request);
         return "page";
     }
@@ -45,7 +50,7 @@ public class PageController {
                                @CookieValue(value = "name", defaultValue = "Stranger") String name,
                                HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         Database.addTask(task);
-        buildModel(model,request);
+        buildModel(model, request);
         Cookie[] cookies=request.getCookies();
         if (!(cookies != null && hasMyCookie(cookies))) {
             name = firstName;
