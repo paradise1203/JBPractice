@@ -1,23 +1,27 @@
 package com.aidar.data;
 
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Database {
 
-    private static List<Task> tasks;
-    private static int index = 0;
+    private static LinkedHashMap<String, List<Task>> taskLists;
 
     static {
-        tasks = new LinkedList<>();
+        taskLists = new LinkedHashMap<>();
     }
 
-    public static List<Task> getTasks() {
-        return tasks;
+    public static List<Task> getTaskList(String name) {
+        return taskLists.get(name);
     }
 
-    public static void addTask(String text) {
-        tasks.add(new Task(++index, text));
+    public static void addTaskList(String name) {
+        taskLists.put(name, new LinkedList<>());
+    }
+
+    public static void addTask(String name, String text) {
+        taskLists.get(name).add(new Task(text));
     }
 
 }

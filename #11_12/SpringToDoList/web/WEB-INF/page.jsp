@@ -10,8 +10,6 @@
         <h3> Hello, ${cookie.name.value}! </h3>
     </c:if>
 
-    <h4> Session id: ${sessionId} </h4>
-
     <form action="/list" method="post">
         <fieldset>
             <legend> Task: </legend>
@@ -24,13 +22,13 @@
     </form>
 
     <c:if test="${!listIsEmpty}">
-        <ul>
+        <ol>
             <c:forEach items="${tasks}" var="task">
                 <li>
-                    <c:out value="Task number ${task.index} : ${task.text}"/> <br> <br>
+                    <c:out value="${task.text}"/> <br> <br>
                 </li>
             </c:forEach>
-        </ul>
+        </ol>
     </c:if>
 </body>
 </html>
