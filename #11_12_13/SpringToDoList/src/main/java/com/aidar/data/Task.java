@@ -4,7 +4,7 @@ public class Task {
 
     private String text;
 
-    Task(String text) {
+    public Task(String text) {
         this.text = text;
     }
 

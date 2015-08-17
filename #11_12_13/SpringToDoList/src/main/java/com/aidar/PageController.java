@@ -1,10 +1,15 @@
 package com.aidar;
 
-import com.aidar.data.Database;
+import com.aidar.dao.ToDoListDAO;
 import com.aidar.data.Task;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +20,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/list")
 public class PageController {
+
+    @Autowired
+    @Qualifier("toDoListDAO")
+    private ToDoListDAO DAO;
 
     private boolean hasMyCookie(Cookie[] mas) {
         for(Cookie c:mas)
@@ -27,7 +36,7 @@ public class PageController {
         HttpSession session = request.getSession();
         List<Task> tasks = null;
         if (session != null)
-            tasks = Database.getTaskList(session.getId());
+            tasks = DAO.getTaskList(session.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("listIsEmpty", tasks == null || tasks.isEmpty());
         Cookie[] cookies = request.getCookies();
@@ -46,9 +55,7 @@ public class PageController {
                                @CookieValue(value = "name", defaultValue = "Stranger") String name,
                                HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         String sessionId=request.getSession().getId();
-        if (Database.getTaskList(sessionId)==null)
-            Database.addTaskList(sessionId);
-        Database.addTask(sessionId, task);
+        DAO.addTask(sessionId, task);
         buildModel(model, request);
         Cookie[] cookies=request.getCookies();
         if (!(cookies != null && hasMyCookie(cookies))) {
