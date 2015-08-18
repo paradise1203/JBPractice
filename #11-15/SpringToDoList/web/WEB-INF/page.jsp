@@ -8,11 +8,11 @@
 
     <c:if test="${hasCookie}">
         <h3> Hello, ${cookie.name.value}! </h3>
-    </c:if>
 
-    <form action="/list/clearUserInf" method="post">
-        <input type="submit" value="Logout&clear">
-    </form>
+        <form action="/list/clearUserInf" method="post">
+            <input type="submit" value="Logout&clear">
+        </form>
+    </c:if>
 
     <form action="/list" method="post">
         <fieldset>
