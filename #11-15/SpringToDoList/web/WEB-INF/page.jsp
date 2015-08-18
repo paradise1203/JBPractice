@@ -10,6 +10,10 @@
         <h3> Hello, ${cookie.name.value}! </h3>
     </c:if>
 
+    <form action="/list/clearUserInf" method="post">
+        <input type="submit" value="Logout&clear">
+    </form>
+
     <form action="/list" method="post">
         <fieldset>
             <legend> Task: </legend>
@@ -25,7 +29,7 @@
         <ol>
             <c:forEach items="${tasks}" var="task">
                 <li>
-                    <c:out value="${task.text}"/> <br> <br>
+                    <c:out value="${task.task}"/> <br> <br>
                 </li>
             </c:forEach>
         </ol>

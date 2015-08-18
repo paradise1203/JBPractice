@@ -1,6 +1,5 @@
 package com.aidar.dao;
 
-import com.aidar.data.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -8,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class ToDoListDAOImpl implements ToDoListDAO {
+public class JdbcToDoListDAO implements ToDoListDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -33,4 +32,8 @@ public class ToDoListDAOImpl implements ToDoListDAO {
         jdbcTemplate.update("INSERT INTO tasks (sessionId, task) VALUES (?, ?)", sessionId, text);
     }
 
+    @Override
+    public void deleteTaskList(String sessionId) {
+        jdbcTemplate.update("DELETE FROM tasks WHERE sessionId=?", sessionId);
+    }
 }
