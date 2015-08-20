@@ -1,6 +1,7 @@
 package com.aidar;
 
 import com.aidar.dao.Task;
+import com.aidar.dao.TaskRepository;
 import com.aidar.dao.ToDoListDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,9 @@ public class PageController {
     @Qualifier("toDoListDAO")
     private ToDoListDAO DAO;
 
+    @Autowired
+    TaskRepository repository;
+
     private boolean hasMyCookie(Cookie[] mas) {
         for (Cookie c : mas)
             if (c.getName().equals("name"))
@@ -48,7 +52,8 @@ public class PageController {
         HttpSession session = request.getSession();
         List<Task> tasks = null;
         if (session != null)
-            tasks = DAO.getTaskList(session.getId());
+            //tasks = DAO.getTaskList(session.getId());
+            tasks = repository.findBySessionId(session.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("listIsEmpty", tasks == null || tasks.isEmpty());
         Cookie[] cookies = request.getCookies();
@@ -69,7 +74,8 @@ public class PageController {
     public String showListPage(@RequestParam("task") String task, @RequestParam(value = "firstName", required = false) String firstName,
                                HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         String sessionId = request.getSession().getId();
-        DAO.addTask(sessionId, task);
+        //DAO.addTask(sessionId, task);
+        repository.addTask(sessionId, task);
         buildModel(model, request);
         Cookie[] cookies = request.getCookies();
         if (!(cookies != null && hasMyCookie(cookies))) {
@@ -81,7 +87,8 @@ public class PageController {
     @RequestMapping(value = "/clearUserInf", method = RequestMethod.POST)
     public String clear(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession();
-        DAO.deleteTaskList(session.getId());
+        //DAO.deleteTaskList(session.getId());
+        repository.deleteTaskList(session.getId());
         session.invalidate();
         redirectAttributes.addAttribute("clear", true);
         return "redirect:/list";
