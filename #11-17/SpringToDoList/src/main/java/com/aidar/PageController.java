@@ -53,7 +53,6 @@ public class PageController {
         if (session != null)
             tasks = repository.findBySessionId(session.getId());
         model.addAttribute("tasks", tasks);
-        model.addAttribute("listIsEmpty", tasks == null || tasks.isEmpty());
         Cookie[] cookies = request.getCookies();
         boolean hasCookie = cookies != null && hasMyCookie(cookies);
         model.addAttribute("hasCookie", hasCookie);
@@ -69,7 +68,7 @@ public class PageController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody ModelAndView showListPage(@RequestParam("task") String task,
+    public void showListPage(@RequestParam("task") String task,
                                                    @RequestParam(value = "firstName", required = false) String firstName,
                                                    HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         String sessionId = request.getSession().getId();
@@ -79,7 +78,6 @@ public class PageController {
         if (!(cookies != null && hasMyCookie(cookies))) {
             response.addCookie(new Cookie("name", firstName));
         }
-        return new ModelAndView("subView");
     }
 
     @RequestMapping(value = "/clearUserInf", method = RequestMethod.POST)

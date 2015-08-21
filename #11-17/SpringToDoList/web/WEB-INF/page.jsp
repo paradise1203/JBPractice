@@ -6,14 +6,12 @@
     <title>ToDo</title>
     <script type="text/javascript" src="/resources/jquery-2.1.4.js"> </script>
     <script type="text/javascript">
-
-        function doAjax() {
-
+        function doAjaxPostAndLogin() {
             var firstName = $("#firstName").val();
             var task = $("#task").val();
 
-            if (task.length<=10) {
-                alert("Sorry, too few words");
+            if (task.length <= 10) {
+                alert("Sorry, but your task should contain of more than 10 letters");
                 return;
             }
 
@@ -24,8 +22,31 @@
                     task: task,
                     firstName: firstName
                 },
+                success: function () {
+                    var tasks=$('#tasks');
+                    tasks.append("<li>" + task + "</li>" + "<br>");
+                    tasks.slideDown();
+                    if (firstName!=null && firstName.length!=0) {
+                        var greeting=$('#greeting');
+                        greeting.text("Hello, " + firstName + "!");
+                        greeting.slideDown();
+                        $('#logout').slideDown();
+                        $('#login').hide();
+                    }
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function doAjaxLogout() {
+            $.ajax({
+                url: 'list/clearUserInf',
+                type: 'POST',
                 success: function (response) {
-                    $("#subView").html(response);
+                    $('#greeting').hide();
+                    $('#logout').hide();
+                    $('#login').slideDown();
+                    $('#tasks').hide();
                 }
             });
         }
@@ -33,40 +54,40 @@
 </head>
 <body>
 
-<div id="subView">
+    <h3 id="greeting">
+        <c:if test="${hasCookie}">
+            Hello, ${cookie.name.value}!
+        </c:if>
+    </h3>
 
-<c:if test="${hasCookie}">
-
-    <h3> Hello, ${cookie.name.value}! </h3>
-
-    <form action="/list/clearUserInf" method="post">
-        <input type="submit" value="Logout&clear">
+    <form id="logout" method="post"
+            <c:if test="${!hasCookie}">
+                style="display:none"
+            </c:if> >
+        <input type="button" value="Logout&clear" onclick="doAjaxLogout()">
     </form>
 
-</c:if>
+    <form method="post">
+        <fieldset>
+            <legend> Task: </legend>
+            <div id="login"
+                    <c:if test="${hasCookie}">
+                        style="display:none"
+                    </c:if> >
+                Enter your name, please: <input type="text" id="firstName" > <br> <br>
+            </div>
+            <textarea id="task" rows="10" cols="45"> </textarea> <br>
+            <input type="button" value="Save" onclick="doAjaxPostAndLogin()">
+        </fieldset>
+    </form>
 
-<c:if test="${!listIsEmpty}">
-    <ol>
+    <ol id="tasks">
         <c:forEach items="${tasks}" var="task">
             <li>
                 <c:out value="${task.task}"/> <br> <br>
             </li>
         </c:forEach>
     </ol>
-</c:if>
-
-</div>
-
-<form method="post">
-    <fieldset>
-        <legend> Task: </legend>
-        <c:if test="${!hasCookie}">
-            Enter your name, please: <input type="text" id="firstName"> <br> <br>
-        </c:if>
-        <textarea id="task" rows="10" cols="45"> </textarea> <br>
-        <input type="button" value="Save" onclick="doAjax()">
-    </fieldset>
-</form>
 
 </body>
 </html>
