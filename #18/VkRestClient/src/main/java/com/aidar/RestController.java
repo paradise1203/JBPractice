@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -33,7 +34,7 @@ public class RestController {
 
     @RequestMapping("/audios")
     public String audios(ModelMap model) {
-        audios = restTemplate.getForObject("https://api.vk.com/method/audio.get?" +
+        audios = restTemplate.getForObject("https://api.vk.com/method/audio.get?v=5.37&" +
                 "access_token=" + token.getAccess_token(), AudioCollection.class);
         model.addAttribute("audios", audios);
         return "page";

@@ -7,22 +7,22 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AudioCollection {
 
-    private String count;
+    private Number count;
     private List<Audio> items;
 
     public AudioCollection() {
     }
 
-    public AudioCollection(String count, List<Audio> items) {
+    public AudioCollection(Number count, List<Audio> items) {
         this.count = count;
         this.items = items;
     }
 
-    public String getCount() {
+    public Number getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(Number count) {
         this.count = count;
     }
 

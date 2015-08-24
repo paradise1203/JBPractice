@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Token {
 
     private String access_token;
-    private String expires_in;
-    private String user_id;
+    private Number expires_in;
+    private Number user_id;
 
     public Token() {
     }
 
-    public Token(String access_token, String expires_in, String user_id) {
+    public Token(String access_token, Number expires_in, Number user_id) {
         this.access_token = access_token;
         this.expires_in = expires_in;
         this.user_id = user_id;
@@ -26,19 +26,19 @@ public class Token {
         this.access_token = access_token;
     }
 
-    public String getExpires_in() {
+    public Number getExpires_in() {
         return expires_in;
     }
 
-    public void setExpires_in(String expires_in) {
+    public void setExpires_in(Number expires_in) {
         this.expires_in = expires_in;
     }
 
-    public String getUser_id() {
+    public Number getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Number user_id) {
         this.user_id = user_id;
     }
 

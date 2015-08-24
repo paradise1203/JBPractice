@@ -22,8 +22,8 @@
 
     <bean id="token" class="com.aidar.Token"/>
 
-    <bean id="audios" class="com.aidar.AudioCollection"/>
-
     <bean id="audio" class="com.aidar.Audio"/>
+
+    <bean id="audios" class="com.aidar.AudioCollection"/>
 
 </beans>
