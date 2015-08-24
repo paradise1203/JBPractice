@@ -1,39 +1,41 @@
 package com.aidar;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Audio {
 
-    private Number id;
-    private Number owner_id;
+    private Integer id;
+    @JsonProperty("owner_id")
+    private Integer ownerId;
     private String artist;
     private String title;
 
     public Audio() {
     }
 
-    public Audio(Number id, Number owner_id, String artist, String title) {
+    public Audio(Integer id, Integer ownerId, String artist, String title) {
         this.id = id;
-        this.owner_id = owner_id;
+        this.ownerId = ownerId;
         this.artist = artist;
         this.title = title;
     }
 
-    public Number getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Number id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Number getOwner_id() {
-        return owner_id;
+    public Integer getOwnerId() {
+        return ownerId;
     }
 
-    public void setOwner_id(Number owner_id) {
-        this.owner_id = owner_id;
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getArtist() {
@@ -56,7 +58,7 @@ public class Audio {
     public String toString() {
         return "Audio{" +
                 "id=" + id +
-                ", owner_id=" + owner_id +
+                ", ownerId=" + ownerId +
                 ", artist='" + artist + '\'' +
                 ", title='" + title + '\'' +
                 '}';

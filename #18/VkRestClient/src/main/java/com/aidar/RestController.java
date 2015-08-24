@@ -15,7 +15,7 @@ public class RestController {
     @Autowired
     private RestTemplate restTemplate;
     private Token token;
-    private AudioCollection audios;
+    private AudioCollectionResponse audios;
 
     @RequestMapping("/home")
     public String showHomePage(ModelMap model) {
@@ -35,7 +35,7 @@ public class RestController {
     @RequestMapping("/audios")
     public String audios(ModelMap model) {
         audios = restTemplate.getForObject("https://api.vk.com/method/audio.get?v=5.37&" +
-                "access_token=" + token.getAccess_token(), AudioCollection.class);
+                "access_token=" + token.getAccess_token(), AudioCollectionResponse.class);
         model.addAttribute("audios", audios);
         return "page";
     }
@@ -43,7 +43,7 @@ public class RestController {
     @RequestMapping("/delete")
     public String delete(ModelMap model) {
         String res = restTemplate.getForObject("https://api.vk.com/method/audio.delete?" +
-                "audio_id=" + audios.getItems().get(0) + "&owner_id=" + token.getUser_id() + "&access_token=" + token.getAccess_token(), String.class);
+                "audio_id=" + audios.getResponse().getItems().get(0) + "&owner_id=" + token.getUser_id() + "&access_token=" + token.getAccess_token(), String.class);
         model.addAttribute("deleteRes", res);
         return "page";
     }
