@@ -2,10 +2,10 @@ package com.aidar;
 
 public interface UserApi {
 
-    public Token getToken(String code);
+    public Token getToken(String url, String code);
 
-    public AudioCollectionResponse getAudios();
+    public AudioCollectionResponse getAudios(String url);
 
-    public String deleteAudio();
+    public String deleteAudio(String url);
 
 }
