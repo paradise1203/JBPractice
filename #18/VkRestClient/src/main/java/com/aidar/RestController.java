@@ -2,10 +2,9 @@ package com.aidar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,37 +12,36 @@ import javax.servlet.http.HttpServletRequest;
 public class RestController {
 
     @Autowired
-    private RestTemplate restTemplate;
-    private Token token;
-    private AudioCollectionResponse audios;
+    UsersDAO dao;
+
+    private String getSessionId(HttpServletRequest request) {
+        return request.getSession().getId();
+    }
 
     @RequestMapping("/home")
-    public String showHomePage(ModelMap model) {
+    public String showHomePage() {
         return "page";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletRequest request, ModelMap model) {
+    @RequestMapping("/login")
+    public String login(HttpServletRequest request, Model model) {
+        dao.addUser(getSessionId(request));
         String code = request.getParameter("code");
-        token = restTemplate.getForObject("https://oauth.vk.com/access_token?" +
-                "client_id=5042953&client_secret=t6VTlzMUhXStuXOoUzsV&redirect_uri=http://localhost:8080/login&code=" +
-                code, Token.class);
+        Token token = dao.getUser(getSessionId(request)).getToken(code);
         model.addAttribute("token", token);
         return "page";
     }
 
     @RequestMapping("/audios")
-    public String audios(ModelMap model) {
-        audios = restTemplate.getForObject("https://api.vk.com/method/audio.get?v=5.37&" +
-                "access_token=" + token.getAccess_token(), AudioCollectionResponse.class);
+    public String audios(HttpServletRequest request, Model model) {
+        AudioCollectionResponse audios = dao.getUser(getSessionId(request)).getAudios();
         model.addAttribute("audios", audios);
         return "page";
     }
 
-    @RequestMapping("/delete")
-    public String delete(ModelMap model) {
-        String res = restTemplate.getForObject("https://api.vk.com/method/audio.delete?" +
-                "audio_id=" + audios.getResponse().getItems().get(0) + "&owner_id=" + token.getUser_id() + "&access_token=" + token.getAccess_token(), String.class);
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(HttpServletRequest request, Model model) {
+        String res = dao.getUser(getSessionId(request)).deleteAudio();
         model.addAttribute("deleteRes", res);
         return "page";
     }

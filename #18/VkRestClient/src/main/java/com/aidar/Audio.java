@@ -57,11 +57,7 @@ public class Audio {
     @Override
     public String toString() {
         return "Audio{" +
-                "id=" + id +
-                ", ownerId=" + ownerId +
-                ", artist='" + artist + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+                "id=" + id + '}';
     }
 
 }

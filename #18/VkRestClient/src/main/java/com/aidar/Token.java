@@ -1,53 +1,59 @@
 package com.aidar;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Token {
 
-    private String access_token;
-    private Number expires_in;
-    private Number user_id;
+    @JsonProperty("access_token")
+    private String accessToken;
+
+    @JsonProperty("expires_in")
+    private Number expiresIn;
+
+    @JsonProperty("user_id")
+    private Number userId;
 
     public Token() {
     }
 
-    public Token(String access_token, Number expires_in, Number user_id) {
-        this.access_token = access_token;
-        this.expires_in = expires_in;
-        this.user_id = user_id;
+    public Token(String accessToken, Number expiresIn, Number userId) {
+        this.accessToken = accessToken;
+        this.expiresIn = expiresIn;
+        this.userId = userId;
     }
 
-    public String getAccess_token() {
-        return access_token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public Number getExpires_in() {
-        return expires_in;
+    public Number getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setExpires_in(Number expires_in) {
-        this.expires_in = expires_in;
+    public void setExpiresIn(Number expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
-    public Number getUser_id() {
-        return user_id;
+    public Number getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Number user_id) {
-        this.user_id = user_id;
+    public void setUserId(Number userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Token{" +
-                "access_token='" + access_token + '\'' +
-                ", expires_in='" + expires_in + '\'' +
-                ", user_id='" + user_id + '\'' +
+                "accessToken='" + accessToken + '\'' +
+                ", expiresIn=" + expiresIn +
+                ", userId=" + userId +
                 '}';
     }
 

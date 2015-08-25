@@ -17,4 +17,11 @@ public class AudioCollectionResponse {
     public void setResponse(AudioCollection response) {
         this.response = response;
     }
+
+    @Override
+    public String toString() {
+        return "AudioCollectionResponse{" +
+                "response=" + response +
+                '}';
+    }
 }
