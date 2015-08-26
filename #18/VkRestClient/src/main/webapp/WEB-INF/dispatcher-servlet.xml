@@ -20,6 +20,17 @@
         <property name="suffix" value=".ftl"/>
     </bean>
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="/resources/config.properties"/>
+    </bean>
+
+    <bean id="urls" class="com.aidar.UrlCollection">
+        <property name="authorizeUrl" value="${authorizeUrl}"/>
+        <property name="tokenUrl" value="${getTokenUrl}"/>
+        <property name="audiosUrl" value="${getAudiosUrl}"/>
+        <property name="deleteAudioUrl" value="${deleteAudioUrl}"/>
+    </bean>
+
     <bean id="usersDAO" class="com.aidar.UsersDAOImpl"/>
 
 </beans>
