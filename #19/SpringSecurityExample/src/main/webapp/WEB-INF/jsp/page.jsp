@@ -7,7 +7,7 @@
     </head>
 
     <body>
-    <form action="<c:url value="/j_spring_security_check"></c:url>" method="post" role="form">
+    <form action="<c:url value='/j_spring_security_check'/>" method="post">
         <fieldset>
             <legend> Information </legend>
             User: <input type="text" name="j_username">
