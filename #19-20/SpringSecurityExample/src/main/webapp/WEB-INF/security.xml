@@ -12,10 +12,10 @@
         <intercept-url pattern="/user/*" access="ROLE_USER, ROLE_ADMIN"/>
         <intercept-url pattern="/admin*" access="ROLE_ADMIN"/>
         <form-login login-page="/login"
+                    login-processing-url="/j_spring_security_check"
                     default-target-url="/admin"
                     authentication-failure-url="/login?error=true"/>
         <logout logout-success-url="/login?logout=true"/>
-        <csrf disabled="false"/>
     </http>
     -->
 
@@ -34,9 +34,16 @@
     </authentication-manager>
     -->
 
+
     <authentication-manager>
         <authentication-provider ref="provider"/>
     </authentication-manager>
+
+    <beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <beans:constructor-arg ref="dataSource"/>
+    </beans:bean>
+
+    <beans:bean id="provider" class="com.aidar.CustomAuthenticationProvider" autowire="byType"/>
 
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -44,11 +51,5 @@
         <beans:property name="username" value="root"/>
         <beans:property name="password" value="wozniak1"/>
     </beans:bean>
-
-    <beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <beans:constructor-arg ref="dataSource"/>
-    </beans:bean>
-
-    <beans:bean id="provider" class="com.aidar.CustomAuthenticationProvider" autowire="byType"/>
 
 </beans:beans>
