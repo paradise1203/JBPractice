@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <beans:import resource="dispatcher-servlet.xml"/>
+    <beans:import resource="jdbc.xml"/>
 
     <!--
     <http auto-config="true" use-expressions="false">
