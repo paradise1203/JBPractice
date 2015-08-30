@@ -9,6 +9,13 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
+    <properties>
+        <driver> com.mysql.jdbc.Driver </driver>
+        <url> jdbc:mysql://localhost:3306/test </url>
+        <username> root </username>
+        <password> wozniak1 </password>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -117,10 +124,10 @@
                 <version>3.4.1</version>
                 <configuration>
                     <changeLogFile>src/main/webapp/resources/db.changelog-master.xml</changeLogFile>
-                    <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://localhost:3306/test</url>
-                    <username>root</username>
-                    <password>wozniak1</password>
+                    <driver>${driver}</driver>
+                    <url>${url}</url>
+                    <username>${username}</username>
+                    <password>${password}</password>
                 </configuration>
                 <executions>
                     <execution>

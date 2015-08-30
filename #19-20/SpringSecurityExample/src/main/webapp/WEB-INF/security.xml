@@ -7,6 +7,8 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <beans:import resource="dispatcher-servlet.xml"/>
+
     <!--
     <http auto-config="true" use-expressions="false">
         <intercept-url pattern="/user/*" access="ROLE_USER, ROLE_ADMIN"/>
@@ -34,22 +36,10 @@
     </authentication-manager>
     -->
 
-
     <authentication-manager>
         <authentication-provider ref="provider"/>
     </authentication-manager>
 
-    <beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <beans:constructor-arg ref="dataSource"/>
-    </beans:bean>
-
     <beans:bean id="provider" class="com.aidar.CustomAuthenticationProvider" autowire="byType"/>
-
-    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <beans:property name="url" value="jdbc:mysql://localhost:3306/test"/>
-        <beans:property name="username" value="root"/>
-        <beans:property name="password" value="wozniak1"/>
-    </beans:bean>
 
 </beans:beans>
