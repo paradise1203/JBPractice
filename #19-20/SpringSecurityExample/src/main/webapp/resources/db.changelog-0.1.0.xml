@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1.0" author="Aidar">
+        <comment>
+            Создание таблицы для хранения ролей пользователей (user_roles).
+        </comment>
+
+        <sql>
+
+            CREATE TABLE users
+            (
+            user_id INT(10) UNSIGNED NOT NULL PRIMARY KEY,
+            user_name VARCHAR(50) NOT NULL,
+            password VARCHAR(50) NOT NULL,
+            enabled boolean
+            );
+
+            CREATE TABLE user_roles
+            (
+            user_role_id INT(10) UNSIGNED NOT NULL PRIMARY KEY,
+            user_id INT(10) UNSIGNED NOT NULL,
+            authority VARCHAR(45) NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (user_id)
+            );
+
+            INSERT INTO users (user_id, user_name, password, enabled)
+            VALUES (1, 'Aidar', 'Aidar123', true);
+            INSERT INTO user_roles (user_role_id, user_id, authority)
+            VALUES (1, 1, 'ROLE_USER');
+
+            INSERT INTO users (user_id, user_name, password, enabled)
+            VALUES (2, 'Ainur', 'Ainur123', true);
+            INSERT INTO user_roles (user_role_id, user_id, authority)
+            VALUES (2, 2, 'ROLE_ADMIN');
+
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
