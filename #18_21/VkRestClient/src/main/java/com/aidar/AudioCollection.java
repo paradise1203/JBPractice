@@ -13,8 +13,9 @@ public class AudioCollection {
     public AudioCollection() {
     }
 
-    public AudioCollection(Integer count) {
+    public AudioCollection(Integer count, List<Audio> items) {
         this.count = count;
+        this.items=items;
     }
 
     public Number getCount() {

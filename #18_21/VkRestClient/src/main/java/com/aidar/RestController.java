@@ -14,7 +14,7 @@ public class RestController {
     @Autowired
     private UsersDAO dao;
     @Autowired
-    private UrlCollection urls;
+    private UrlCollection urls;;
 
     private String getSessionId(HttpServletRequest request) {
         return request.getSession().getId();
@@ -29,7 +29,7 @@ public class RestController {
     @RequestMapping("/login")
     public
     @ResponseBody
-    Token login(HttpServletRequest request, Model model) {
+    Token login(HttpServletRequest request) {
         dao.addUser(getSessionId(request));
         String code = request.getParameter("code");
         return dao.getUser(getSessionId(request)).getToken(urls.getTokenUrl(), code);
@@ -38,14 +38,14 @@ public class RestController {
     @RequestMapping("/audios")
     public
     @ResponseBody
-    AudioCollectionResponse audios(HttpServletRequest request, Model model) {
+    AudioCollectionResponse audios(HttpServletRequest request) {
         return dao.getUser(getSessionId(request)).getAudios(urls.getAudiosUrl());
     }
 
     @RequestMapping("/delete")
     public
     @ResponseBody
-    String delete(HttpServletRequest request, Model model) {
+    String delete(HttpServletRequest request) {
         return dao.getUser(getSessionId(request)).deleteAudio(urls.getDeleteAudioUrl());
     }
 
