@@ -33,4 +33,8 @@
 
     <bean id="usersDAO" class="com.aidar.UsersDAOImpl"/>
 
+    <bean id="userApi" class="com.aidar.UserApiImpl"/>
+
+    <bean id="userService" class="com.aidar.UserServiceImpl"/>
+
 </beans>

@@ -14,7 +14,9 @@ public class RestController {
     @Autowired
     private UsersDAO dao;
     @Autowired
-    private UrlCollection urls;;
+    private UrlCollection urls;
+    @Autowired
+    private UserService userService;
 
     private String getSessionId(HttpServletRequest request) {
         return request.getSession().getId();
@@ -32,14 +34,14 @@ public class RestController {
     Token login(HttpServletRequest request) {
         dao.addUser(getSessionId(request));
         String code = request.getParameter("code");
-        return dao.getUser(getSessionId(request)).getToken(urls.getTokenUrl(), code);
+        return dao.getUser(getSessionId(request)).getNewToken(urls.getTokenUrl(), code);
     }
 
     @RequestMapping("/audios")
     public
     @ResponseBody
     AudioCollectionResponse audios(HttpServletRequest request) {
-        return dao.getUser(getSessionId(request)).getAudios(urls.getAudiosUrl());
+        return dao.getUser(getSessionId(request)).getNewAudios(urls.getAudiosUrl());
     }
 
     @RequestMapping("/delete")
@@ -47,6 +49,13 @@ public class RestController {
     @ResponseBody
     String delete(HttpServletRequest request) {
         return dao.getUser(getSessionId(request)).deleteAudio(urls.getDeleteAudioUrl());
+    }
+
+    @RequestMapping("/filter")
+    public
+    @ResponseBody
+    AudioCollectionResponse filter(HttpServletRequest request) {
+        return userService.filterAudiosByArtist(dao.getUser(getSessionId(request)), "Eminem");
     }
 
 }

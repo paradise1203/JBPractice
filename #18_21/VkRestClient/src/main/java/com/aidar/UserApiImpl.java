@@ -12,23 +12,35 @@ public class UserApiImpl implements UserApi {
         restTemplate = new RestTemplate();
     }
 
+    public UserApiImpl(Token token, AudioCollectionResponse audios) {
+        this.token = token;
+        this.audios = audios;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public AudioCollectionResponse getAudios() {
+        return audios;
+    }
+
     @Override
-    public Token getToken(String url, String code) {
+    public Token getNewToken(String url, String code) {
         token = restTemplate.getForObject(url + "code=" + code, Token.class);
         return token;
     }
 
     @Override
-    public AudioCollectionResponse getAudios(String url) {
+    public AudioCollectionResponse getNewAudios(String url) {
         audios = restTemplate.getForObject(url + "v=5.37&access_token=" + token.getAccessToken(), AudioCollectionResponse.class);
         return audios;
     }
 
     @Override
     public String deleteAudio(String url) {
-        String res = restTemplate.getForObject(url + "audio_id=" + audios.getResponse().getItems().get(0).getId() +
+        return restTemplate.getForObject(url + "audio_id=" + audios.getResponse().getItems().get(0).getId() +
                 "&owner_id=" + token.getUserId() + "&access_token=" + token.getAccessToken(), String.class);
-        return res;
     }
 
 }

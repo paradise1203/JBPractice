@@ -2,13 +2,16 @@ package com.aidar;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * Created by ainurminibaev on 25.08.15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AudioCollectionResponse {
 
     private AudioCollection response;
+
+    public AudioCollectionResponse() {}
+
+    public AudioCollectionResponse(AudioCollection audioCollection) {
+        response=audioCollection;
+    }
 
     public AudioCollection getResponse() {
         return response;

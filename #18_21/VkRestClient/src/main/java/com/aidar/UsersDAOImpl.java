@@ -8,7 +8,7 @@ public class UsersDAOImpl implements UsersDAO {
     private Map<String, UserApi> users;
 
     public UsersDAOImpl() {
-        users=new LinkedHashMap<String, UserApi>();
+        users=new LinkedHashMap<>();
     }
 
     @Override
